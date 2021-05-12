@@ -30,6 +30,7 @@ import Foreign.Ptr
 import Foreign.Storable
 import Foreign.Marshal.Alloc
 import GHC.Generics (Generic)
+import Language.Haskell.TH.Syntax
 
 #if defined(_WIN32)
 #  include "hs_clock_win32.c"
@@ -190,7 +191,7 @@ getRes clk = allocaAndPeek $! throwErrnoIfMinus1_ "clock_getres" . clock_getres 
 data TimeSpec = TimeSpec
   { sec  :: {-# UNPACK #-} !Int64 -- ^ seconds
   , nsec :: {-# UNPACK #-} !Int64 -- ^ nanoseconds
-  } deriving (Generic, Read, Show, Typeable)
+  } deriving (Generic, Read, Show, Typeable, Lift)
 
 #if defined(_WIN32)
 instance Storable TimeSpec where
