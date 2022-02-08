@@ -18,6 +18,7 @@ import GHC.Generics (Generic)
 import System.Clock(TimeSpec(..), Clock, s2ns, normalize)
 import qualified System.Clock as C
 
+-- | A wrapper for TimeSpec that behaves similarly to 'Double' or 'Data.Fixed.Nano'. @1 :: Seconds@ is 1 second.
 newtype Seconds = Seconds { toTimeSpec :: TimeSpec }
  deriving (Generic, Read, Show, Typeable, Eq, Ord, Storable, Bounded)
 
@@ -34,6 +35,7 @@ instance Num Seconds where
     (-1) -> (-1)
     _ -> 0
 
+-- | 'succ' and 'pred' add and subtract @1@ second, respectively, similarly to 'Double'.
 instance Enum Seconds where
   succ x = x + 1
   pred x = x - 1
